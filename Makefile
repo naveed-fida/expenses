@@ -10,4 +10,4 @@ $(objects) : %.o : %.c
 
 .PHONY : clean
 clean  :
-		 rm expenses $(objects)
+		 rm bin/expenses $(objects)
