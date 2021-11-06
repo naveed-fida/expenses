@@ -1,1 +1,5 @@
 test.c
+expenses
+test
+*.o
+bin/*
