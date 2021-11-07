@@ -2,3 +2,4 @@ test.c
 expenses
 test
 *.o
+*.ignore
