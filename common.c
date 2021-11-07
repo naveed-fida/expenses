@@ -39,6 +39,21 @@ void save_option(struct arguments *arg_struct, char *opt, char *val)
         arg_struct->options.tag = val;
 }
 
+void validate_opt_has_val(int count, char *opt) {
+    if (count < 2)
+        exit_no_value(opt);
+}
+
+void validate_value(char *opt, char *val) {
+    if (!is_valid_value(opt, val))
+        exit_invalid_value(opt, val);
+}
+
+void validate_opt_non_redundant(struct arguments *arg_struct, char *opt) {
+    if (is_redundant_option(arg_struct, opt))
+        exit_redundant_option(opt);
+}
+
 void populate_arg_struct(struct arguments *arg_struct, int count, char *arg_arr[]) 
 {
     char *looking = OPTION;
@@ -52,16 +67,14 @@ void populate_arg_struct(struct arguments *arg_struct, int count, char *arg_arr[
             if (is_valid_option(next)) {
                 looking = VALUE;
                 option = next;
+                validate_opt_has_val(count, option);
             } else if (atof(next) != 0.0 && arg_struct->expense == 0) {
                 arg_struct->expense = atof(next);
             } else
                 exit_invalid_opt_expense(next);
         } else if (looking == VALUE) {
-            if (!is_valid_value(option, next))
-                exit_invalid_value(option, next);
-            
-            if (is_redundant_option(arg_struct, option))
-                exit_redundant_option(option);
+            validate_value(option, next);
+            validate_opt_non_redundant(arg_struct, option);
 
             looking = OPTION;
             save_option(arg_struct, option, next);
