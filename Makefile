@@ -8,6 +8,9 @@ expenses : $(objects)
 $(objects) : %.o : %.c
 	   $(CC) -c $(CFLAGS) $< -o $@
 
+.PHONY : rebuild
+rebuild : clean
+	make
 .PHONY : clean
 clean  :
 		 rm bin/expenses $(objects)
