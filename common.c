@@ -8,7 +8,7 @@
 #define OPTION "option"
 #define VALUE "value"
 
-struct arguments initArgumentsStruct()
+struct arguments init_argument_struct()
 {
     struct arguments s = {
         .command = (char *) NULL,
@@ -25,46 +25,46 @@ struct arguments initArgumentsStruct()
     return s;
 }
 
-void saveOption(struct arguments *argStruct, char *opt, char *val)
+void save_option(struct arguments *arg_struct, char *opt, char *val)
 {
     if (strcmp(opt, "-d") == 0)
-        argStruct->options.day = atoi(val);
+        arg_struct->options.day = atoi(val);
     else if (strcmp(opt, "-m") == 0)
-        argStruct->options.month = atoi(val);
+        arg_struct->options.month = atoi(val);
     else if (strcmp(opt, "-y") == 0)
-        argStruct->options.year = atoi(val);
+        arg_struct->options.year = atoi(val);
     else if (strcmp(opt, "-c") == 0)
-        argStruct->options.cat = val;
+        arg_struct->options.cat = val;
     else if (strcmp(opt, "-t") == 0)
-        argStruct->options.tag = val;
+        arg_struct->options.tag = val;
 }
 
-void populateArgStruct(struct arguments *argStruct, int count, char *argArr[]) 
+void populate_arg_struct(struct arguments *arg_struct, int count, char *arg_arr[]) 
 {
     char *looking = OPTION;
     char *option;
 
     while (--count > 0)
     {
-        char *next = *++argArr;
+        char *next = *++arg_arr;
         if (looking == OPTION)
         {
-            if (isValidOption(next)) {
+            if (is_valid_option(next)) {
                 looking = VALUE;
                 option = next;
-            } else if (atof(next) != 0.0 && argStruct->expense == 0) {
-                argStruct->expense = atof(next);
+            } else if (atof(next) != 0.0 && arg_struct->expense == 0) {
+                arg_struct->expense = atof(next);
             } else
-                exitInvalidOptExpense(next);
+                exit_invalid_opt_expense(next);
         } else if (looking == VALUE) {
-            if (!isValidValue(option, next))
-                exitInvalidValue(option, next);
+            if (!is_valid_value(option, next))
+                exit_invalid_value(option, next);
             
-            if (isRedundantOption(argStruct, option))
-                exitRedundantOption(option);
+            if (is_redundant_option(arg_struct, option))
+                exit_redundant_option(option);
 
             looking = OPTION;
-            saveOption(argStruct, option, next);
+            save_option(arg_struct, option, next);
         }
     }
 }

@@ -2,15 +2,15 @@
 #include "common.h"
 #include "exit_functions.h"
 
-struct arguments parseAdd(int count, char *argArr[])
+struct arguments parse_add(int count, char *arg_arr[])
 {
-    struct arguments argStruct = initArgumentsStruct();
-    argStruct.command = "add";
+    struct arguments arg_struct = init_argument_struct();
+    arg_struct.command = "add";
 
-    populateArgStruct(&argStruct, count, argArr);
+    populate_arg_struct(&arg_struct, count, arg_arr);
 
-    if (argStruct.expense == 0.0)
-        exitNoExpense();
+    if (arg_struct.expense == 0.0)
+        exit_no_expense();
 
-    return argStruct;
+    return arg_struct;
 }

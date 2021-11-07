@@ -6,7 +6,7 @@
 static char *commands[] = { "add", "list", "cat", "tag", "total" };
 static char *options[] = { "-d", "-m", "-y", "-c", "-t" };
 
-bool isValidCommand(char *cmd) 
+bool is_valid_command(char *cmd) 
 {
     for (int i = 0; i < 5; i++) 
     {
@@ -17,7 +17,7 @@ bool isValidCommand(char *cmd)
     return false;
 }
 
-bool isValidOption(char *opt) 
+bool is_valid_option(char *opt) 
 {
     for (int i = 0; i < 5; i++) 
     {
@@ -28,7 +28,7 @@ bool isValidOption(char *opt)
     return false;
 }
 
-bool isATimeOption(char *opt) 
+bool is_time_option(char *opt) 
 {
     return (
         strcmp(opt, "-d") == 0 ||
@@ -37,29 +37,29 @@ bool isATimeOption(char *opt)
     );
 }
 
-bool isValidValue(char *opt, char *value)
+bool is_valid_value(char *opt, char *value)
 {
     // probably buggy. Will evaluate
     if (
-        (isATimeOption(opt) && atoi(value) != 0) ||
-        (!isATimeOption(opt) && atoi(value) == 0)
+        (is_time_option(opt) && atoi(value) != 0) ||
+        (!is_time_option(opt) && atoi(value) == 0)
     ) return true;
 
     return false;
 }
 
-bool isRedundantOption(struct arguments *argStruct, char *opt)
+bool is_redundant_option(struct arguments *arg_struct, char *opt)
 {
     return (
-        isATimeOption(opt) &&
+        is_time_option(opt) &&
         (
-            argStruct->options.day   != '\0' ||
-            argStruct->options.month != '\0' ||
-            argStruct->options.year  != '\0'
+            arg_struct->options.day   != '\0' ||
+            arg_struct->options.month != '\0' ||
+            arg_struct->options.year  != '\0'
         )
     )  ||
     (
-        (strcmp(opt, "-t") == 0 && argStruct->options.tag != '\0') ||
-        (strcmp(opt, "-c") == 0 && argStruct->options.tag != '\0')
+        (strcmp(opt, "-t") == 0 && arg_struct->options.tag != '\0') ||
+        (strcmp(opt, "-c") == 0 && arg_struct->options.tag != '\0')
     );
 }

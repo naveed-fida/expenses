@@ -3,8 +3,7 @@
 
 #include "types.h"
 
-void saveOption(struct arguments *argStruct, char *opt, char *val);
-void populateArgStruct(struct arguments *argStruct, int count, char *argArr[]);
-struct arguments initArgumentsStruct();
+void populate_arg_struct(struct arguments *arg_struct, int count, char *arg_arr[]);
+struct arguments init_argument_struct();
 
 #endif
