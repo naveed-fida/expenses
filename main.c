@@ -5,7 +5,13 @@
 #include "exit_functions.h"
 #include "add.h"
 #include "validations.h"
+#include "common.h"
 #include "types.h"
+
+void guard_environment_var_set() {
+    if (getenv(EXPENSES_DATA_DIR) == '\0')
+        exit_env_variable_not_set();
+}
 
 void display_help()
 {
@@ -41,6 +47,7 @@ char *parse_args_and_run_command(int count, char *arg_arr[])
 }
 
 int main(int argc, char *argv[]) {
+    guard_environment_var_set();
     if (argc == 1) display_help();
     char *output = parse_args_and_run_command(argc - 1, argv + 1);
 

@@ -39,17 +39,17 @@ void save_option(struct arguments *arg_struct, char *opt, char *val)
         arg_struct->options.tag = val;
 }
 
-void validate_opt_has_val(int count, char *opt) {
+void guard_opt_has_val(int count, char *opt) {
     if (count < 2)
         exit_no_value(opt);
 }
 
-void validate_value(char *opt, char *val) {
+void guard_value(char *opt, char *val) {
     if (!is_valid_value(opt, val))
         exit_invalid_value(opt, val);
 }
 
-void validate_opt_non_redundant(struct arguments *arg_struct, char *opt) {
+void guard_opt_non_redundant(struct arguments *arg_struct, char *opt) {
     if (is_redundant_option(arg_struct, opt))
         exit_redundant_option(opt);
 }
@@ -67,17 +67,27 @@ void populate_arg_struct(struct arguments *arg_struct, int count, char *arg_arr[
             if (is_valid_option(next)) {
                 looking = VALUE;
                 option = next;
-                validate_opt_has_val(count, option);
+                guard_opt_has_val(count, option);
             } else if (atof(next) != 0.0 && arg_struct->expense == 0) {
                 arg_struct->expense = atof(next);
             } else
                 exit_invalid_opt_expense(next);
         } else if (looking == VALUE) {
-            validate_value(option, next);
-            validate_opt_non_redundant(arg_struct, option);
+            guard_value(option, next);
+            guard_opt_non_redundant(arg_struct, option);
 
             looking = OPTION;
             save_option(arg_struct, option, next);
         }
     }
+}
+
+void guard_cat_tag_length(struct arguments *arg_struct, int max_cat, int max_tag)
+{
+    char *cat = arg_struct->options.cat;
+    char *tag = arg_struct->options.tag;
+    if (cat != '\0' && strlen(cat) > max_cat)
+        exit_value_too_long("category", max_cat);
+    else if (tag != '\0' && strlen(tag) > max_tag)
+        exit_value_too_long("tag", max_tag);
 }

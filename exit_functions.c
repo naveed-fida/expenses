@@ -60,3 +60,26 @@ void exit_no_value(char *opt)
     fprintf(stderr, "Error: No value provided for `%s`\n", opt);
     exit(1);
 }
+
+void exit_env_variable_not_set() 
+{
+    fprintf(
+        stderr,
+        "Error: No `EXPENSES_DATA_DIR` environment variable found. "
+        "Make sure that the variable is set with value equal to the directory path"
+        "where you want to save the expenses.\n"
+    );
+    
+    exit(1);
+}
+
+void exit_cant_open_data_file()
+{
+    fprintf(
+        stderr,
+        "Error: Cannot open or create data file. "
+        "Make sure the value of `EXPENSES_DATA_DIR` environment variable "
+        "is the path to a directory you have write permissions in.\n"
+    );
+    exit(1);
+}
