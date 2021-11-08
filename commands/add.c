@@ -22,7 +22,7 @@ void guard_no_time_option(struct arguments *arg_struct)
         exit_invalid_time_options(arg_struct->command);
 }
 
-char *run_add(struct arguments *arg_struct) {
+void save_expense(struct arguments *arg_struct) {
     char *expenses_data_path = getenv(EXPENSES_DATA_DIR);
     strcat(expenses_data_path, "/data");
 
@@ -36,16 +36,16 @@ char *run_add(struct arguments *arg_struct) {
         "%li\t%.2f\t%s\t%s\n",
         time(NULL),
         arg_struct->expense,
-        arg_struct->options.cat == '\0' ? "null" : arg_struct->options.cat,
-        arg_struct->options.tag == '\0' ? "null" : arg_struct->options.tag
+        arg_struct->options.cat == '\0' ? "None" : arg_struct->options.cat,
+        arg_struct->options.tag == '\0' ? "None" : arg_struct->options.tag
     );
 
     fclose(fp);
 
-    return "expense added!\n";
+    printf("Expense saved!\n");
 }
 
-char *parse_and_run_add(int count, char *arg_arr[])
+void parse_and_run_add(int count, char *arg_arr[])
 {
     struct arguments arg_struct = init_argument_struct();
     arg_struct.command = "add";
@@ -53,6 +53,5 @@ char *parse_and_run_add(int count, char *arg_arr[])
     guard_expense_amount(&arg_struct);
     guard_no_time_option(&arg_struct);
     guard_cat_tag_length(&arg_struct, MAX_CAT_LEN, MAX_TAG_LEN);
-
-    return run_add(&arg_struct);
+    save_expense(&arg_struct);
 }

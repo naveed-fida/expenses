@@ -83,3 +83,9 @@ void exit_cant_open_data_file()
     );
     exit(1);
 }
+
+void exit_no_data_file()
+{
+    fprintf(stderr, "No data file. Seems like you haven't added any expenses yet!\n");
+    exit(0);
+}

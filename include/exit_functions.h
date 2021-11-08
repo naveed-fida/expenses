@@ -11,5 +11,6 @@ void exit_value_too_long(char *opt, int max_len);
 void exit_no_value(char *opt);
 void exit_cant_open_data_file();
 void exit_env_variable_not_set();
+void exit_no_data_file();
 
 #endif
