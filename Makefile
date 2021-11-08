@@ -1,6 +1,6 @@
 objects = $(patsubst %.c,%.o,$(wildcard *.c)) $(patsubst %.c,%.o,$(wildcard commands/*.c))
 CC = gcc
-CFLAGS = -iquote include
+CFLAGS = -iquote include -iquote commands/include
 
 expenses : $(objects)
 		   $(CC) -o bin/expenses $(objects)
