@@ -86,8 +86,8 @@ void guard_cat_tag_length(struct arguments *arg_struct, int max_cat, int max_tag
 {
     char *cat = arg_struct->options.cat;
     char *tag = arg_struct->options.tag;
-    if (cat != '\0' && strlen(cat) > max_cat)
+    if (cat != NULL && strlen(cat) > max_cat)
         exit_value_too_long("category", max_cat);
-    else if (tag != '\0' && strlen(tag) > max_tag)
+    else if (tag != NULL && strlen(tag) > max_tag)
         exit_value_too_long("tag", max_tag);
 }

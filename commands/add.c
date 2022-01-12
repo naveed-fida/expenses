@@ -33,8 +33,8 @@ void save_expense(struct arguments *arg_struct) {
     /*Row format: time\tamount\tcategroy\ttag */
     char cat_str[MAX_CAT_LEN + 5];
     char tag_str[MAX_TAG_LEN + 5];
-    sprintf(cat_str, "\"%s\"", arg_struct->options.cat == '\0' ? "none" : arg_struct->options.cat);
-    sprintf(tag_str, "\"%s\"", arg_struct->options.tag == '\0' ? "none" : arg_struct->options.tag);
+    sprintf(cat_str, "\"%s\"", arg_struct->options.cat == NULL ? "none" : arg_struct->options.cat);
+    sprintf(tag_str, "\"%s\"", arg_struct->options.tag == NULL ? "none" : arg_struct->options.tag);
     fprintf(fp, "%li\t%.2f\t%s\t%s\n", time(NULL), arg_struct->expense, cat_str, tag_str);
 
     fclose(fp);

@@ -10,7 +10,7 @@
 #include "list.h"
 
 void guard_environment_var_set() {
-    if (getenv(EXPENSES_DATA_DIR) == '\0')
+    if (getenv(EXPENSES_DATA_DIR) == NULL)
         exit_env_variable_not_set();
 }
 

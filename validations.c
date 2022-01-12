@@ -53,13 +53,13 @@ bool is_redundant_option(struct arguments *arg_struct, char *opt)
     return (
         is_time_option(opt) &&
         (
-            arg_struct->options.day   != '\0' ||
-            arg_struct->options.month != '\0' ||
-            arg_struct->options.year  != '\0'
+            arg_struct->options.day   != NULL ||
+            arg_struct->options.month != NULL ||
+            arg_struct->options.year  != NULL
         )
     )  ||
     (
-        (strcmp(opt, "-t") == 0 && arg_struct->options.tag != '\0') ||
-        (strcmp(opt, "-c") == 0 && arg_struct->options.tag != '\0')
+        (strcmp(opt, "-t") == 0 && arg_struct->options.tag != NULL) ||
+        (strcmp(opt, "-c") == 0 && arg_struct->options.tag != NULL)
     );
 }
