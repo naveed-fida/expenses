@@ -1,19 +1,17 @@
 version: 2.1
 
 jobs:
-  make-build:
+  build:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: "Run Make"
-          command: "make"
+      - run: make
        - slack/notify:
           channel: C034YBSS9HU   
           event: fail
           template: basic_fail_1
 workflows:
-  make-build-workflow:
+  build-workflow:
     jobs:
-      - make-build
+      - build
