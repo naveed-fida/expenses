@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - run: make
-      - slack:
-        channel: C034YBSS9HU
-        event: fail
-        template: basic_fail_1
+      - slack/notify:
+          channel: C034YBSS9HU
+          event: fail
+          template: basic_fail_1
 workflows:
   build-workflow:
     jobs:
